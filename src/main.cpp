@@ -7,7 +7,7 @@
 
 class Subject {
 public:
-    std::string describe(int number, const std::string& suffix) const {
+    [[nodiscard]] std::string describe(int number, const std::string& suffix) const {
         return std::to_string(number + offset_) + suffix;
     }
 
