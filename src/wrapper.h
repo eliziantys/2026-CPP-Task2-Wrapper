@@ -26,7 +26,7 @@ public:
             throw std::invalid_argument("Wrapper requires a valid object and method");
         }
         normalize_c_string_values(defaults);
-        auto names = normalize_order(std::move(argument_order), defaults);
+        auto names = normalize_order(argument_order, defaults);
         validate_argument_count<Args...>(names.size());
         validate_argument_names(names, defaults);
         invoke_ = [object, method, defaults = std::move(defaults),
@@ -45,7 +45,7 @@ public:
             throw std::invalid_argument("Wrapper requires a valid object and method");
         }
         normalize_c_string_values(defaults);
-        auto names = normalize_order(std::move(argument_order), defaults);
+        auto names = normalize_order(argument_order, defaults);
         validate_argument_count<Args...>(names.size());
         validate_argument_names(names, defaults);
         invoke_ = [object, method, defaults = std::move(defaults),
@@ -71,7 +71,7 @@ private:
         T, std::void_t<decltype(std::declval<std::istringstream&>() >> std::declval<T&>())>>
         : std::true_type {};
 
-    static std::vector<std::string> normalize_order(std::vector<std::string> order,
+    static std::vector<std::string> normalize_order(const std::vector<std::string>& order,
                                                      const ArgumentMap& defaults) {
         if (!order.empty()) {
             return order;
